@@ -25,9 +25,11 @@ class UserBase(BaseModel):
     email: str  # todo: we can add a EmailStr
     bio: str
 
+
 class UserCreate(UserBase):
     password: str
     # pass
+
 
 class UserResponse(UserBase):
     id: int
@@ -36,3 +38,8 @@ class UserResponse(UserBase):
 
     class Config:
         from_attributes = True
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str

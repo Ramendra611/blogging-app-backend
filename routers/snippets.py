@@ -4,6 +4,7 @@ import schemas
 import models
 import schemas
 from database import get_db
+from auth import get_current_user
 
 router = APIRouter(prefix="/snippets", tags=["Snippets"])
 
@@ -12,9 +13,16 @@ router = APIRouter(prefix="/snippets", tags=["Snippets"])
 def create_snippet(
     snippet: schemas.SnippetCreate,
     db: Session = Depends(get_db),
+    current_user : models.User =  Depends(get_current_user)
 ):
-    ### create a new snippet
+    ## Authentication of user
+    if snippet.user_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You are not authorized to post on behalf of another user!"
+        )
 
+    ### create a new snippet
     new_snippet = models.Post(
         title=snippet.title, content=snippet.content, user_id=snippet.user_id
     )
