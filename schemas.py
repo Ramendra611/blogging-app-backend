@@ -25,11 +25,9 @@ class UserBase(BaseModel):
     email: str  # todo: we can add a EmailStr
     bio: str
 
-
 class UserCreate(UserBase):
-    # password: str
-    pass
-
+    password: str
+    # pass
 
 class UserResponse(UserBase):
     id: int

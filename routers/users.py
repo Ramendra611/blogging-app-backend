@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 import models
 import schemas
 from database import get_db
-
+from auth import hash_password
 
 router = APIRouter(prefix = "/users", tags = ["Users"])
 
@@ -22,7 +22,7 @@ def create_user(user: schemas.UserCreate,
         username=user.username,
         email=user.email,
         bio=user.bio,
-        # hashed_password=hash_password(user.password)
+        hashed_password=hash_password(user.password)
     )
     db.add(new_user)
     db.commit()
