@@ -2,8 +2,10 @@ from datetime import datetime
 from sqlalchemy import String, DateTime, ForeignKey
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
+
 class Base(DeclarativeBase):
     pass
+
 
 class User(Base):
     __tablename__ = "users"
@@ -17,6 +19,7 @@ class User(Base):
 
     def __repr__(self) -> str:
         return f"<User {self.username}>"
+
 
 class Post(Base):
     __tablename__ = "posts"
